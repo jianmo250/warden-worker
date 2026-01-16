@@ -1,4 +1,4 @@
--- Users table to store user accounts and their master keys/hashes
+-- 用户表用于存储用户账户及其主密钥/哈希值
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY NOT NULL,
     name TEXT,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TEXT NOT NULL
 );
 
--- Ciphers table for storing encrypted vault items
+-- 用于存储加密保管库项目的密码表
 CREATE TABLE IF NOT EXISTS ciphers (
     id TEXT PRIMARY KEY NOT NULL,
     user_id TEXT,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS ciphers (
     FOREIGN KEY (folder_id) REFERENCES folders(id) ON DELETE SET NULL
 );
 
--- Attachments table for cipher file metadata
+-- 密码文件元数据附件表
 CREATE TABLE IF NOT EXISTS attachments (
     id TEXT PRIMARY KEY NOT NULL,
     cipher_id TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS attachments_pending (
 CREATE INDEX IF NOT EXISTS idx_attachments_pending_cipher ON attachments_pending(cipher_id);
 CREATE INDEX IF NOT EXISTS idx_attachments_pending_created_at ON attachments_pending(created_at);
 
--- TwoFactor table for two-factor authentication
+-- 用于双因素身份验证的 TwoFactor 表格
 -- Types: 0=Authenticator(TOTP), 1=Email, 5=Remember, 8=RecoveryCode
 CREATE TABLE IF NOT EXISTS twofactor (
     uuid TEXT PRIMARY KEY NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS twofactor (
     UNIQUE(user_uuid, atype)
 );
 
--- Folders table for organizing ciphers
+-- 用于组织密码的文件夹表
 CREATE TABLE IF NOT EXISTS folders (
     id TEXT PRIMARY KEY NOT NULL,
     user_id TEXT NOT NULL,
